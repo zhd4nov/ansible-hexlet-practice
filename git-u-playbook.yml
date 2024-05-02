@@ -1,0 +1,13 @@
+---
+- name: playbook testing with git uninstall
+  hosts: servers
+  remote_user: student
+
+  tasks:
+  - name: uninstall git
+    ansible.builtin.apt:
+      name: git
+      state: absent
+    become: yes
+
+
