@@ -1,0 +1,14 @@
+---
+- name: playbook testing with git install
+  hosts: servers
+  remote_user: student
+
+  tasks:
+  - name: install git
+    ansible.builtin.apt:
+      name: git
+      state: present
+      update_cache: yes
+    become: yes
+
+
