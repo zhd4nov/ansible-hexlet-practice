@@ -10,5 +10,28 @@
       state: present
       update_cache: yes
     become: yes
+    tags:
+    - install
+
+  - name: create user
+    ansible.builtin.user:
+      name: newtestuser
+      group: developers
+    tags:
+    - user
+
+  - name: create second user
+    ansible.builtin.user:
+      name: newtestuser2
+      groups: admin, developers
+      append: yes
+    tags:
+    - user
+
+
+
+
+
+
 
 
