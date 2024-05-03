@@ -12,6 +12,7 @@
     become: yes
     tags:
     - install
+    - git
 
   - name: create user
     ansible.builtin.user:
