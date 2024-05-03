@@ -17,15 +17,14 @@
   - name: create user
     ansible.builtin.user:
       name: newtestuser
-      group: developers
+    become: yes
     tags:
     - user
 
   - name: create second user
     ansible.builtin.user:
       name: newtestuser2
-      groups: admin, developers
-      append: yes
+    become: yes
     tags:
     - user
 
