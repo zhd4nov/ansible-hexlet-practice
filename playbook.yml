@@ -1,0 +1,54 @@
+---
+- name: playbook testing with git install
+  hosts: webservers
+  remote_user: student
+
+  tasks:
+  - name: install git
+    ansible.builtin.apt:
+      name: git
+      state: present
+      update_cache: yes
+    become: yes
+    tags:
+    - install
+
+  - name: install nginx
+    ansible.builtin.apt:
+      name: nginx
+      state: latest
+      update_cache: yes
+    become: yes
+    tags:
+    - install
+
+  - name: update nginx config
+    ansible.builtin.copy:
+      src: files/nginx.conf
+      dest: /etc/nginx/nginx.conf
+    notify:
+    - restart nginx
+    tags:
+    - update_config
+    become: yes
+
+  - name: copy src files
+    ansible.builtin.copy:
+      src: files/index.html
+      dest: /usr/share/nginx/html/index.html
+    tags:
+    - page_update
+    become: yes
+
+  handlers:
+  - name: restart nginx
+    ansible.builtin.service:
+      name: nginx
+      state: reloaded
+    become: yes
+
+
+
+
+
+
