@@ -1,6 +1,7 @@
 ---
 - name: playbook testing with git install
   hosts: webservers
+  gather_facts: no
   remote_user: student
   vars:
     root_dir: /usr/share/nginx/html
