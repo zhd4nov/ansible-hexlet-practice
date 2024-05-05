@@ -1,12 +1,12 @@
 setup:
-	ansible-playbook playbook.yml -i inventory.ini
+	ansible-playbook playbooks/playbook.yml -i inventory.ini
 
 update_nginx:
-	ansible-playbook playbook.yml -i inventory.ini -t update_config
+	ansible-playbook playbooks/playbook.yml -i inventory.ini -t update_config
 
 ping:
 	ansible all -i inventory.ini -u student -m ping
 
 install:
-	ansible-playbook playbook.yml -i inventory.ini -t install
+	ansible-playbook playbooks/playbook.yml -i inventory.ini -t install
 
