@@ -38,7 +38,7 @@
 
   - name: copy src files
     ansible.builtin.template:
-      src: ../files/index.html.j2
+      src: ../files/templates/index.html.j2
       dest: "{{root_dir}}/index.html"
     tags:
     - page_update

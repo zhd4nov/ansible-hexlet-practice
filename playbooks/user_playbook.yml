@@ -1,5 +1,4 @@
 ---
-
 - name: create users
   hosts: servers
   gather_facts: no
@@ -15,14 +14,20 @@
       ansible.builtin.user:
         name: "{{ item }}"
         state: present
+        generate_ssh_key: yes
       loop: "{{ users }}"
-      notify: apply gitconfig
       become: yes
 
-  handlers:
     - name: apply gitconfig
       ansible.builtin.template:
         src: ../files/templates/gitconfig.j2
         dest: "/home/{{ item }}/.gitconfig"
+      loop: "{{ users }}"
+      become: yes
+
+    - name: apply keys
+      ansible.builtin.copy:
+        src: ../files/id_ed25519.pub
+        dest: "/home/{{ item }}/.ssh/authorized_keys"
       loop: "{{ users }}"
       become: yes
