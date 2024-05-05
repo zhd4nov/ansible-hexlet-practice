@@ -1,0 +1,28 @@
+---
+
+- name: create users
+  hosts: servers
+  gather_facts: no
+  remote_user: student
+  vars:
+    users:
+      - jamie
+      - sansa
+      - robert
+
+  tasks:
+    - name: add users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users }}"
+      notify: apply gitconfig
+      become: yes
+
+  handlers:
+    - name: apply gitconfig
+      ansible.builtin.template:
+        src: ../files/templates/gitconfig.j2
+        dest: "/home/{{ item }}/.gitconfig"
+      loop: "{{ users }}"
+      become: yes
