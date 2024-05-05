@@ -1,6 +1,6 @@
 ---
 - name: playbook testing with git install
-  hosts: webservers
+  hosts: servers
   gather_facts: no
   remote_user: student
   vars:
