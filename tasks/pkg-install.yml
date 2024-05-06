@@ -1,0 +1,33 @@
+---
+- name: Install Tasks
+  remote_user: student
+  hosts: servers
+
+  tasks:
+    - name: CentOS Install Tasks
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+      become: yes
+
+    - name: CentOS Install Tasks
+      ansible.builtin.yum:
+        name:
+         - nginx
+         - git
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+      become: yes
+
+    - name: Ubuntu Install Tasks
+      ansible.builtin.apt:
+        name:
+          - nginx
+          - git
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+      become: yes

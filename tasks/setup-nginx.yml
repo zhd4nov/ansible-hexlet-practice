@@ -6,26 +6,7 @@
   vars:
     root_dir: /usr/share/nginx/html
     nginx_port: 80
-
   tasks:
-  - name: install git
-    ansible.builtin.apt:
-      name: git
-      state: present
-      update_cache: yes
-    become: yes
-    tags:
-    - install
-
-  - name: install nginx
-    ansible.builtin.apt:
-      name: nginx
-      state: latest
-      update_cache: yes
-    become: yes
-    tags:
-    - install
-
   - name: update nginx config
     ansible.builtin.template:
       src: ../files/templates/nginx.conf.j2
@@ -58,9 +39,3 @@
       state: reloaded
       enabled: yes
     become: yes
-
-
-
-
-
-

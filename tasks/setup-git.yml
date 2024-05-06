@@ -1,0 +1,55 @@
+---
+- name: Setup Git Tasks
+  remote_user: student
+  hosts: servers
+  vars:
+    users:
+      - gitboy
+
+  tasks:
+    - name: CentOS Setup Yum Repo
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+      become: yes
+
+    - name: CentOS Git Install
+      ansible.builtin.yum:
+        name:
+         - git
+        state: latest
+      when: ansible_distribution == "CentOS"
+      become: yes
+
+    - name: Ubuntu Git Install
+      ansible.builtin.apt:
+        name:
+          - git
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+      become: yes
+
+    - name: Add Users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+        generate_ssh_key: yes
+      loop: "{{ users }}"
+      become: yes
+
+    - name: Apply Gitconfig
+      ansible.builtin.template:
+        src: ../files/templates/gitconfig.j2
+        dest: "/home/{{ item }}/.gitconfig"
+      loop: "{{ users }}"
+      become: yes
+
+    - name: Apply Keys
+      ansible.builtin.copy:
+        src: ../files/id_ed25519.pub
+        dest: "/home/{{ item }}/.ssh/authorized_keys"
+      loop: "{{ users }}"
+      become: yes
