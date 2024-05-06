@@ -6,6 +6,11 @@
     root_dir: /usr/share/nginx/html
     nginx_port: 80
   tasks:
+  - name: Get Cowsay Result
+    ansible.builtin.command: 'cowsay "This is server {{ server_name }}!"'
+    register: cowsay_result
+    tags:
+    - page_update
   - name: update nginx config
     ansible.builtin.template:
       src: ../files/templates/nginx.conf.j2
