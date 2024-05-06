@@ -9,5 +9,6 @@
 <body>
   <h1>Hello World!</h1>
   <h2>{{ "This is server" | upper}} {{ server_name | upper }}!</h2>
+  <small>Deployed at: {{ '%c' | ansible.builtin.strftime(ansible_date_time['epoch']) }}</small>
 </body>
 </html>
