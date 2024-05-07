@@ -1,0 +1,9 @@
+---
+- name: Install Pkg From Roles
+  hosts: webservers
+  remote_user: student
+
+  roles:
+    - role: geerlingguy.nodejs
+    - role: nginxinc.nginx
+  become: yes
