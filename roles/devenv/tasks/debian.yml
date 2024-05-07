@@ -1,0 +1,9 @@
+- name: Ubuntu Git Install
+  ansible.builtin.apt:
+    name:
+      - git
+    state: latest
+    update_cache: yes
+  become: yes
+
+

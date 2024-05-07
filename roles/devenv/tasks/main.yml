@@ -1,0 +1,18 @@
+---
+# tasks file for devenv
+- name: Install Git CentOS
+  import_tasks: centos.yml
+  when: ansible_distribution|lower == "centos"
+
+- name: Install Git Debian
+  import_tasks: debian.yml
+  when: ansible_facts['os_family']|lower == "debian"
+
+# create user
+  - name: Add Users
+    ansible.builtin.user:
+      name: "{{ user }}"
+      password: "{{ password | hash('sha1') }}"
+      state: present
+    notify: Apply Gitconfig
+    become: yes

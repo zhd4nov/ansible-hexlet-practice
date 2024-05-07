@@ -1,0 +1,8 @@
+---
+- name: Setup Dev Env From Role
+  hosts: servers
+  remote_user: student
+
+  roles:
+    - devenv
+  become: yes

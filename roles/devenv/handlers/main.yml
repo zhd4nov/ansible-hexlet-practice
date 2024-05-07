@@ -1,0 +1,7 @@
+---
+# handlers file for devenv
+- name: Apply Gitconfig
+  ansible.builtin.template:
+    src: ../files/gitconfig.j2
+    dest: "/home/{{ user }}/.gitconfig"
+  become: yes
