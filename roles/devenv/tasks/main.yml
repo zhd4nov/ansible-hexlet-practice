@@ -9,10 +9,10 @@
   when: ansible_facts['os_family']|lower == "debian"
 
 # create user
-  - name: Add Users
-    ansible.builtin.user:
-      name: "{{ user }}"
-      password: "{{ password | hash('sha1') }}"
-      state: present
-    notify: Apply Gitconfig
-    become: yes
+- name: Add Users
+  ansible.builtin.user:
+    name: "{{ user }}"
+    password: "{{ password | hash('sha512') }}"
+    state: present
+  notify: Apply Gitconfig
+  become: yes

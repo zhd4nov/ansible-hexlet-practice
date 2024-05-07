@@ -4,5 +4,5 @@
   remote_user: student
 
   roles:
-    - devenv
+    - role: '~/hexlet/devops/ansible/roles/devenv'
   become: yes
