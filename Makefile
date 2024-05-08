@@ -1,10 +1,8 @@
+# some tests
 setup: install_pkg setup_git setup_nginx
 	
 create_users:
 	ansible-playbook tasks/create_users.yml -i inventory.ini
-
-ping:
-	ansible all -i inventory.ini -u student -m ping
 
 install_pkg:
 	ansible-playbook tasks/pkg-install.yml -i inventory.ini
@@ -20,3 +18,10 @@ update_nginx:
 
 update_html:
 	ansible-playbook tasks/setup-nginx.yml -i inventory.ini -t page_update
+
+ping:
+	ansible all -i inventory.ini -u student -m ping
+
+# some smart shit with custom roles
+rollout_env:
+	ansible-playbook tasks/git_from_role -i inventory.ini
