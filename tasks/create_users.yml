@@ -25,9 +25,10 @@
       loop: "{{ users }}"
       become: yes
 
-    - name: apply keys
-      ansible.builtin.copy:
-        src: ../files/id_ed25519.pub
-        dest: "/home/{{ item }}/.ssh/authorized_keys"
+    - name: apply keys with collection
+      ansible.posix.authorized_key:
+        user: "{{ item }}"
+        state: present
+        key: "{{ lookup('file', '../files/id_ed25519.pub') }}"
       loop: "{{ users }}"
       become: yes
