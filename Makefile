@@ -2,7 +2,7 @@
 setup: install_pkg setup_git setup_nginx
 	
 create_users:
-	ansible-playbook tasks/create_users.yml -i inventory.ini
+	ansible-playbook tasks/create-users.yml -i inventory.ini
 
 install_pkg:
 	ansible-playbook tasks/pkg-install.yml -i inventory.ini
